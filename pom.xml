@@ -11,9 +11,9 @@
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
-    <stream-client.version>0.4.0</stream-client.version>
-    <amqp-client.version>5.14.1</amqp-client.version>
-    <logback.version>1.2.10</logback.version>
+    <stream-client.version>0.5.0</stream-client.version>
+    <amqp-client.version>5.14.2</amqp-client.version>
+    <logback.version>1.2.11</logback.version>
   </properties>
 
   <dependencies>
