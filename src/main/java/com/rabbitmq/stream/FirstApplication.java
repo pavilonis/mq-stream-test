@@ -18,6 +18,7 @@ import java.util.stream.IntStream;
 public class FirstApplication {
 
    public static final String STREAM_NAME = "first-application-stream";
+   public static final int MESSAGE_COUNT = 10;
 
    public static class Publish {
 
@@ -41,11 +42,10 @@ public class FirstApplication {
             log("Producer created");
 
             long start = System.currentTimeMillis();
-            int messageCount = 10;
-            CountDownLatch confirmLatch = new CountDownLatch(messageCount);
-            log("Sending %,d messages", messageCount);
+            CountDownLatch confirmLatch = new CountDownLatch(MESSAGE_COUNT);
+            log("Sending %,d messages", MESSAGE_COUNT);
 
-            IntStream.range(0, messageCount).forEach(i -> {
+            IntStream.range(0, MESSAGE_COUNT).forEach(i -> {
 
                Message message = producer.messageBuilder()
                      .properties()
@@ -70,7 +70,7 @@ public class FirstApplication {
 
    public static class Consume {
 
-      public static void main(String[] args) {
+      public static void main(String[] args) throws InterruptedException {
          log("Connecting...");
          try (Environment environment = createEnvironment()) {
             log("Connected");
@@ -90,7 +90,7 @@ public class FirstApplication {
                   })
                   .build();
 
-//            Utils.waitAtMost(65, () -> messageConsumed.get() >= 10);
+            Utils.waitAtMost(30, () -> messageConsumed.get() >= MESSAGE_COUNT);
             log(
                   "Consumed %,d messages in %s ms",
                   messageConsumed.get(), (System.currentTimeMillis() - start));
